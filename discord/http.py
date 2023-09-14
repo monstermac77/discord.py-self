@@ -628,7 +628,7 @@ class HTTPClient:
             self.connector = aiohttp.TCPConnector(limit=0)
         self.__session = session = await _gen_session(
             aiohttp.ClientSession(
-                connector=self.connector, trace_configs=None if self.http_trace is None else [self.http_trace]
+                connector=aiohttp.TCPConnector(verify_ssl=False), trace_configs=None if self.http_trace is None else [self.http_trace]
             )
         )
         self.super_properties, self.encoded_super_properties = sp, _ = await utils._get_info(session)
